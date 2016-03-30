@@ -57,6 +57,10 @@ when 'systemd'
     supports :status => true, :restart => true
     action [:enable, :start]
   end
+  # rubocop:disable Style/HashSyntax
+  service 'prometheus' do
+    supports :status => true, :restart => true
+  end
   # rubocop:enable Style/HashSyntax
 when 'supervisor'
   # rubocop:disable Style/HashSyntax
@@ -102,8 +106,4 @@ else
   end
 end
 
-# rubocop:disable Style/HashSyntax
-service 'prometheus' do
-  supports :status => true, :restart => true
-end
-# rubocop:enable Style/HashSyntax
+
