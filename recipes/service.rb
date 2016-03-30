@@ -73,7 +73,6 @@ when 'supervisor'
   template "/etc/#{conf_dir}/#{env_file}" do
     source "#{dist_dir}/#{conf_dir}/prometheus.erb"
     mode 0644
-    notifies :restart, 'service[prometheus]', :delayed
   end
 
  prom_command='/opt/prometheus/prometheus -config.file=/opt/prometheus/prometheus.yml'
