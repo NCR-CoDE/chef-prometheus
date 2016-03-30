@@ -85,25 +85,25 @@ default['prometheus']['job_config_cookbook_name']                               
 default['prometheus']['flags']['config.file']                                             = "#{node['prometheus']['dir']}/prometheus.yml"
 
 # Only log messages with the given severity or above. Valid levels: [debug, info, warn, error, fatal, panic].
-default['prometheus']['flags']['log.level']                                               = 'info'
+#default['prometheus']['flags']['log.level']                                               = 'info'
 
 # Alert manager HTTP API timeout.
-default['prometheus']['flags']['alertmanager.http-deadline']                              = '10s'
+#default['prometheus']['flags']['alertmanager.http-deadline']                              = '10s'
 
 # The capacity of the queue for pending alert manager notifications.
-default['prometheus']['flags']['alertmanager.notification-queue-capacity']                = 100
+#default['prometheus']['flags']['alertmanager.notification-queue-capacity']                = 100
 
 # The URL of the alert manager to send notifications to.
-default['prometheus']['flags']['alertmanager.url']                                        = ''
+#default['prometheus']['flags']['alertmanager.url']                                        = ''
 
 # Maximum number of queries executed concurrently.
-default['prometheus']['flags']['query.max-concurrency']                                   = 20
+#default['prometheus']['flags']['query.max-concurrency']                                   = 20
 
 # Staleness delta allowance during expression evaluations.
-default['prometheus']['flags']['query.staleness-delta']                                   = '5m0s'
+#default['prometheus']['flags']['query.staleness-delta']                                   = '5m0s'
 
 # Maximum time a query may take before being aborted.
-default['prometheus']['flags']['query.timeout']                                           = '2m0s'
+#default['prometheus']['flags']['query.timeout']                                           = '2m0s'
 
 # If approx. that many time series are in a state that would require a recovery
 # operation after a crash, a checkpoint is triggered, even if the checkpoint interval
@@ -111,89 +111,89 @@ default['prometheus']['flags']['query.timeout']                                 
 # intends to keep the recovery time below 1min even on spinning disks. With SSD,
 # recovery is much faster, so you might want to increase this value in that case
 # to avoid overly frequent checkpoints.
-default['prometheus']['flags']['storage.local.checkpoint-dirty-series-limit']             = 5000
+#default['prometheus']['flags']['storage.local.checkpoint-dirty-series-limit']             = 5000
 
 # The period at which the in-memory index of time series is checkpointed.
-default['prometheus']['flags']['storage.local.checkpoint-interval']                       = '5m0s'
+#default['prometheus']['flags']['storage.local.checkpoint-interval']                       = '5m0s'
 
 # If set, the local storage layer will perform crash recovery even if the last
 # shutdown appears to be clean.
-default['prometheus']['flags']['storage.local.dirty']                                     = false
+#default['prometheus']['flags']['storage.local.dirty']                                     = false
 
 # The size in bytes for the fingerprint to metric index cache.
-default['prometheus']['flags']['storage.local.index-cache-size.fingerprint-to-metric']    = 10485760
+#default['prometheus']['flags']['storage.local.index-cache-size.fingerprint-to-metric']    = 10485760
 
 # The size in bytes for the metric time range index cache.
-default['prometheus']['flags']['storage.local.index-cache-size.fingerprint-to-timerange'] = 5242880
+#default['prometheus']['flags']['storage.local.index-cache-size.fingerprint-to-timerange'] = 5242880
 
 # The size in bytes for the label name to label values index cache.
-default['prometheus']['flags']['storage.local.index-cache-size.label-name-to-label-values']  = 10485760
+#default['prometheus']['flags']['storage.local.index-cache-size.label-name-to-label-values']  = 10485760
 
 # The size in bytes for the label pair to fingerprints index cache.
-default['prometheus']['flags']['storage.local.index-cache-size.label-pair-to-fingerprints']  = 20971520
+#default['prometheus']['flags']['storage.local.index-cache-size.label-pair-to-fingerprints']  = 20971520
 
 # How many chunks to keep in memory. While the size of a chunk is 1kiB, the total
 # memory usage will be significantly higher than this value * 1kiB. Furthermore,
 # for various reasons, more chunks might have to be kept in memory temporarily.
-default['prometheus']['flags']['storage.local.memory-chunks']                             = 1048576
+#default['prometheus']['flags']['storage.local.memory-chunks']                             = 1048576
 
 # Base path for metrics storage.
-default['prometheus']['flags']['storage.local.path']                                      = '/tmp/metrics'
+#default['prometheus']['flags']['storage.local.path']                                      = '/tmp/metrics'
 
 # If set, a crash recovery will perform checks on each series file. This might take a very long time.
-default['prometheus']['flags']['storage.local.pedantic-checks']                           = false
+#default['prometheus']['flags']['storage.local.pedantic-checks']                           = false
 
 # How long to retain samples in the local storage.
-default['prometheus']['flags']['storage.local.retention']                                 = '360h0m0s'
+#default['prometheus']['flags']['storage.local.retention']                                 = '360h0m0s'
 
 # When to sync series files after modification. Possible values:
 # 'never', 'always', 'adaptive'. Sync'ing slows down storage performance
 # but reduces the risk of data loss in case of an OS crash. With the
 # 'adaptive' strategy, series files are sync'd for as long as the storage
 # is not too much behind on chunk persistence.
-default['prometheus']['flags']['storage.local.series-sync-strategy']                      = 'adaptive'
+#default['prometheus']['flags']['storage.local.series-sync-strategy']                      = 'adaptive'
 
 # The URL of the remote InfluxDB server to send samples to. None, if empty.
-default['prometheus']['flags']['storage.remote.influxdb-url']                             = ''
+#default['prometheus']['flags']['storage.remote.influxdb-url']                             = ''
 
 # The name of the database to use for storing samples in InfluxDB.
-default['prometheus']['flags']['storage.remote.influxdb.database']                        = 'prometheus'
+#default['prometheus']['flags']['storage.remote.influxdb.database']                        = 'prometheus'
 
 # The InfluxDB retention policy to use.
-default['prometheus']['flags']['storage.remote.influxdb.retention-policy']                = 'default'
+#default['prometheus']['flags']['storage.remote.influxdb.retention-policy']                = 'default'
 
 # The URL of the OpenTSDB instance to send samples to. None, if empty.
-default['prometheus']['flags']['storage.remote.opentsdb-url']                             = ''
+#default['prometheus']['flags']['storage.remote.opentsdb-url']                             = ''
 
 # The timeout to use when sending samples to the remote storage.
-default['prometheus']['flags']['storage.remote.timeout']                                  = '30s'
+#default['prometheus']['flags']['storage.remote.timeout']                                  = '30s'
 
 # Path to the console library directory.
-default['prometheus']['flags']['web.console.libraries']                                   = 'console_libraries'
+#default['prometheus']['flags']['web.console.libraries']                                   = 'console_libraries'
 
 # Path to the console template directory, available at /console.
-default['prometheus']['flags']['web.console.templates']                                   = 'consoles'
+#default['prometheus']['flags']['web.console.templates']                                   = 'consoles'
 
 # Enable remote service shutdown.
-default['prometheus']['flags']['web.enable-remote-shutdown']                              = false
+#default['prometheus']['flags']['web.enable-remote-shutdown']                              = false
 
 # The URL under which Prometheus is externally reachable (for
 # example, if Prometheus is served via a reverse proxy). Used for
 # generating relative and absolute links back to Prometheus itself. If
 # omitted, relevant URL components will be derived automatically.
-default['prometheus']['flags']['web.web.external-url']                                    = ''
+#default['prometheus']['flags']['web.web.external-url']                                    = ''
 
 # Address to listen on for the web interface, API, and telemetry.
-default['prometheus']['flags']['web.listen-address']                                      = ':9090'
+#default['prometheus']['flags']['web.listen-address']                                      = ':9090'
 
 # Path under which to expose metrics.
-default['prometheus']['flags']['web.telemetry-path']                                      = '/metrics'
+#default['prometheus']['flags']['web.telemetry-path']                                      = '/metrics'
 
 # Read assets/templates from file instead of binary.
-default['prometheus']['flags']['web.use-local-assets']                                    = false
+#default['prometheus']['flags']['web.use-local-assets']                                    = false
 
 # Path to static asset directory, available at /user.
-default['prometheus']['flags']['web.user-assets']                                         = ''
+#default['prometheus']['flags']['web.user-assets']                                         = ''
 
 # Location of Alertmanager binary
 default['prometheus']['alertmanager']['binary']                                           = "#{node['prometheus']['dir']}/alertmanager"
