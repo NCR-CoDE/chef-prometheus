@@ -46,7 +46,6 @@ template node['prometheus']['flags']['config.file'] do
   mode      0644
   owner     node['prometheus']['user']
   group     node['prometheus']['group']
-  notifies  :restart, 'service[prometheus]'
 end
 
 # monitor our server instance
@@ -61,7 +60,6 @@ accumulator node['prometheus']['flags']['config.file'] do
   target        template: node['prometheus']['flags']['config.file']
   transform     { |jobs| jobs.sort_by(&:name) }
   variable_name :jobs
-  notifies      :restart, 'service[prometheus]'
 
   not_if { node['prometheus']['allow_external_config'] && File.exist?(node['prometheus']['flags']['config.file']) }
 end
