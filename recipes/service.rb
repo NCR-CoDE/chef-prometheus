@@ -77,7 +77,7 @@ when 'supervisor'
   action :enable
   autostart true
   user "prometheus"
-  command command
+  command prom_command
 end
 
   # rubocop:enable Style/HashSyntax
