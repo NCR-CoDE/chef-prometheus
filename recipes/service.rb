@@ -58,6 +58,29 @@ when 'systemd'
     action [:enable, :start]
   end
   # rubocop:enable Style/HashSyntax
+when 'supervisor'
+  # rubocop:disable Style/HashSyntax
+  dist_dir, conf_dir, env_file = value_for_platform_family(
+    ['fedora'] => %w(fedora sysconfig prometheus),
+    ['rhel'] => %w(redhat sysconfig prometheus)
+  )
+
+  
+  template "/etc/#{conf_dir}/#{env_file}" do
+    source "#{dist_dir}/#{conf_dir}/prometheus.erb"
+    mode 0644
+    notifies :restart, 'service[prometheus]', :delayed
+  end
+
+ prom_command='/opt/prometheus/prometheus -config.file=/opt/prometheus/prometheus.yml'
+ supervisor_service "prometheus" do
+  action :enable
+  autostart true
+  user "prometheus"
+  command command
+end
+
+  # rubocop:enable Style/HashSyntax
 when 'upstart'
   template '/etc/init/prometheus.conf' do
     source 'upstart/prometheus.service.erb'
