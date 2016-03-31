@@ -138,7 +138,7 @@ default['prometheus']['flags']['config.file']                                   
 #default['prometheus']['flags']['storage.local.memory-chunks']                             = 1048576
 
 # Base path for metrics storage.
-#default['prometheus']['flags']['storage.local.path']                                      = '/tmp/metrics'
+default['prometheus']['flags']['storage.local.path']                                      = '/opt/prometheus/data'
 
 # If set, a crash recovery will perform checks on each series file. This might take a very long time.
 #default['prometheus']['flags']['storage.local.pedantic-checks']                           = false

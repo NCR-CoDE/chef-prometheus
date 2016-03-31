@@ -75,7 +75,7 @@ when 'supervisor'
     mode 0644
   end
 
- prom_command='/opt/prometheus/prometheus -config.file=/opt/prometheus/prometheus.yml -storage.local.path=/opt/prometheus/data'
+ prom_command="/opt/prometheus/prometheus -config.file=/opt/prometheus/prometheus.yml -storage.local.path=#{node['prometheus']['flags']['storage.local.path']}"
  supervisor_service "prometheus" do
   action :enable
   autostart true
