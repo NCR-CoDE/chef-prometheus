@@ -169,10 +169,10 @@ default['prometheus']['flags']['storage.local.path']                            
 #default['prometheus']['flags']['storage.remote.timeout']                                  = '30s'
 
 # Path to the console library directory.
-#default['prometheus']['flags']['web.console.libraries']                                   = 'console_libraries'
+default['prometheus']['flags']['web.console.libraries']                                   = '/opt/prometheus/console_libraries'
 
 # Path to the console template directory, available at /console.
-#default['prometheus']['flags']['web.console.templates']                                   = 'consoles'
+default['prometheus']['flags']['web.console.templates']                                   = '/opt/prometheus/consoles'
 
 # Enable remote service shutdown.
 #default['prometheus']['flags']['web.enable-remote-shutdown']                              = false
