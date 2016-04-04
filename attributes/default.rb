@@ -138,7 +138,7 @@ default['prometheus']['flags']['config.file']                                   
 #default['prometheus']['flags']['storage.local.memory-chunks']                             = 1048576
 
 # Base path for metrics storage.
-default['prometheus']['flags']['storage.local.path']                                      = '/opt/prometheus/data'
+default['prometheus']['flags']['storage.local.path']                                      = "#{node['prometheus']['dir']}/data"
 
 # If set, a crash recovery will perform checks on each series file. This might take a very long time.
 #default['prometheus']['flags']['storage.local.pedantic-checks']                           = false
@@ -169,10 +169,10 @@ default['prometheus']['flags']['storage.local.path']                            
 #default['prometheus']['flags']['storage.remote.timeout']                                  = '30s'
 
 # Path to the console library directory.
-default['prometheus']['flags']['web.console.libraries']                                   = '/opt/prometheus/console_libraries'
+default['prometheus']['flags']['web.console.libraries']                                   = "#{node['prometheus']['dir']}/console_libraries"
 
 # Path to the console template directory, available at /console.
-default['prometheus']['flags']['web.console.templates']                                   = '/opt/prometheus/consoles'
+default['prometheus']['flags']['web.console.templates']                                   = "#{node['prometheus']['dir']}/consoles"
 
 # Enable remote service shutdown.
 #default['prometheus']['flags']['web.enable-remote-shutdown']                              = false
