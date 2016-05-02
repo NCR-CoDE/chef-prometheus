@@ -135,7 +135,7 @@ default['prometheus']['flags']['config.file']                                   
 # How many chunks to keep in memory. While the size of a chunk is 1kiB, the total
 # memory usage will be significantly higher than this value * 1kiB. Furthermore,
 # for various reasons, more chunks might have to be kept in memory temporarily.
-#default['prometheus']['flags']['storage.local.memory-chunks']                             = 1048576
+default['prometheus']['flags']['storage.local.memory-chunks']                             = 500000
 
 # Base path for metrics storage.
 default['prometheus']['flags']['storage.local.path']                                      = "#{node['prometheus']['dir']}/data"

@@ -7,66 +7,26 @@ provisioner:
   data_path: test/shared
 
 platforms:
-  - name: ubuntu-14.04
-    run_list:
-      - recipe[apt]
-  - name: ubuntu-12.04
-    run_list:
-      - recipe[apt]
-  - name: debian-7.7
-    run_list:
-      - recipe[apt]
-  - name: centos-6.6
+  - name: centos-6.7
+    driver: 
+      vagrantfile_erb: Vagrantfile.erb
     run_list:
       - recipe[yum::default]
-  - name: centos-7.0
+  - name: centos-7.2
+    driver: 
+      vagrantfile_erb: Vagrantfile.erb
     run_list:
       - recipe[yum::default]
 
 suites:
   - name: default
     run_list:
-        - recipe[prometheus::default]
-    attributes:
-
-  - name: init
-    run_list:
-        - recipe[prometheus::default]
-    provisioner:
-        name: chef_zero
-        require_chef_omnibus: 11.12.4
-    attributes:
-      prometheus:
-        init_style: 'init'
-
-  - name: bluepill
-    run_list:
+        - recipe[supervisor::default]
         - recipe[prometheus::default]
     attributes:
       prometheus:
-        init_style: 'bluepill'
+        install_method: binary
+        init_style: supervisor
+        checksum: 0a0e301a2f166a52a4e870f1f83e7a6bee3783d7ce35c7ba34f1d2f20a78cbd8
+        binary_url: https://github.com/prometheus/prometheus/releases/download/0.17.0/prometheus-0.17.0.linux-amd64.tar.gz
 
-  - name: default-binary
-    run_list:
-        - recipe[prometheus::default]
-    attributes:
-      prometheus:
-        install_method: 'binary'
-
-  - name: init-binary
-    run_list:
-        - recipe[prometheus::default]
-    attributes:
-      prometheus:
-        init_style: 'init'
-        install_method: 'binary'
-        flags:
-          storage.remote.timeout: 45s
-
-  - name: bluepill-binary
-    run_list:
-        - recipe[prometheus::default]
-    attributes:
-      prometheus:
-        init_style: 'bluepill'
-        install_method: 'binary'
