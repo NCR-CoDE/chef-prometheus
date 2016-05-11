@@ -23,6 +23,7 @@ suites:
     run_list:
         - recipe[supervisor::default]
         - recipe[prometheus::default]
+        - recipe[prometheus::alertmanager]
     attributes:
       prometheus:
         install_method: binary

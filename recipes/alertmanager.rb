@@ -17,7 +17,11 @@
 # limitations under the License.
 #
 
-include_recipe 'build-essential::default'
+
+dir_name = ::File.basename(node['prometheus']['dir'])
+dir_path = ::File.dirname(node['prometheus']['dir'])
+alertmanager_dir="#{node['prometheus']['dir']}/alertmanager"
+
 
 user node['prometheus']['user'] do
   system true
@@ -40,50 +44,25 @@ directory node['prometheus']['log_dir'] do
   recursive true
 end
 
-# -- Write our Config -- #
 
-template node['prometheus']['alertmanager']['config.file'] do
-  cookbook  node['prometheus']['alertmanager']['config_cookbook_name']
-  source    node['prometheus']['alertmanager']['config_template_name']
-  mode      0644
-  owner     node['prometheus']['user']
-  group     node['prometheus']['group']
-  notifies  :restart, 'service[alertmanager]'
+log "download and unpackage alertmanager in #{alertmanager_dir}"
+ark 'alertmanager' do
+  url node['prometheus']['alertmanager']['package_url']
+  checksum node['prometheus']['alertmanager']['package_checksum']
+  path node['prometheus']['dir']
+  owner node['prometheus']['user']
+  group node['prometheus']['group']
+  action :put
 end
 
-# -- Do the install -- #
-
-# These packages are needed go build
-%w( curl git-core mercurial gzip sed ).each do |pkg|
-  package pkg
+log 'setting up alertmanager service'
+alertmanager_command="#{node['prometheus']['alertmanager']['binary']} -config.file=#{node['prometheus']['alertmanager']['config.file']}"
+ supervisor_service "alertmanager" do
+  action :enable
+  autostart true
+  user "prometheus"
+	directory alertmanager_dir
+  command alertmanager_command
 end
 
-git "#{Chef::Config[:file_cache_path]}/alertmanager-#{node['prometheus']['alertmanager']['version']}" do
-  repository node['prometheus']['alertmanager']['git_repository']
-  revision node['prometheus']['alertmanager']['git_revision']
-  action :checkout
-end
 
-bash 'compile_alertmanager_source' do
-  cwd "#{Chef::Config[:file_cache_path]}/alertmanager-#{node['prometheus']['alertmanager']['version']}"
-  code "make && mv alertmanager #{node['prometheus']['dir']}"
-
-  notifies :restart, 'service[alertmanager]'
-end
-
-template '/etc/init/alertmanager.conf' do
-  source 'upstart/alertmanager.service.erb'
-  mode 0644
-  notifies :restart, 'service[alertmanager]', :delayed
-end
-
-service 'alertmanager' do
-  provider Chef::Provider::Service::Upstart
-  action [:enable, :start]
-end
-
-# rubocop:disable Style/HashSyntax
-service 'alertmanager' do
-  supports :status => true, :restart => true
-end
-# rubocop:enable Style/HashSyntax

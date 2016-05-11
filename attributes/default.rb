@@ -196,7 +196,9 @@ default['prometheus']['flags']['web.console.templates']                         
 #default['prometheus']['flags']['web.user-assets']                                         = ''
 
 # Location of Alertmanager binary
-default['prometheus']['alertmanager']['binary']                                           = "#{node['prometheus']['dir']}/alertmanager"
+default['prometheus']['alertmanager']['package_url']                                           = "https://github.com/prometheus/alertmanager/releases/download/0.1.1/alertmanager-0.1.1.linux-amd64.tar.gz"
+default['prometheus']['alertmanager']['package_checksum']                                           = "ad0b3b362dbf07ab14c41518aad0984a4bb3378f760059b49a1bf15d6adfece8"
+default['prometheus']['alertmanager']['binary']                                           = "#{node['prometheus']['dir']}/alertmanager/alertmanager"
 
 # Alertmanager version to build
 default['prometheus']['alertmanager']['version']                                          = '0.0.4'
@@ -209,7 +211,7 @@ default['prometheus']['alertmanager']['git_repository']                         
 default['prometheus']['alertmanager']['git_revision']                                     = node['prometheus']['alertmanager']['version']
 
 # Alertmanager configuration file name.
-default['prometheus']['alertmanager']['config.file']                                      = "#{node['prometheus']['dir']}/alertmanager.conf"
+default['prometheus']['alertmanager']['config.file']                                      = "#{node['prometheus']['dir']}/alertmanager/simple.yml"
 
 # Alertmanager configuration chef template name.
 default['prometheus']['alertmanager']['config_cookbook_name']                             = 'prometheus'
