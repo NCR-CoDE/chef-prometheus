@@ -55,6 +55,17 @@ ark 'alertmanager' do
   action :put
 end
 
+log 'creating a sample configuration file if it does not exist'
+template node['prometheus']['alertmanager']['config.file'] do
+  cookbook  node['prometheus']['alertmanager']['config_cookbook_name']
+  source    node['prometheus']['alertmanager']['config_template_name']
+  mode      0644
+  owner     node['prometheus']['user']
+  group     node['prometheus']['group']
+  not_if do ::File.exists?("#{node['prometheus']['alertmanager']['config.file']}") end
+end
+
+
 log 'setting up alertmanager service'
 alertmanager_command="#{node['prometheus']['alertmanager']['binary']} -config.file=#{node['prometheus']['alertmanager']['config.file']}"
  supervisor_service "alertmanager" do

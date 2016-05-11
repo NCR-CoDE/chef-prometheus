@@ -211,7 +211,7 @@ default['prometheus']['alertmanager']['git_repository']                         
 default['prometheus']['alertmanager']['git_revision']                                     = node['prometheus']['alertmanager']['version']
 
 # Alertmanager configuration file name.
-default['prometheus']['alertmanager']['config.file']                                      = "#{node['prometheus']['dir']}/alertmanager/simple.yml"
+default['prometheus']['alertmanager']['config.file']                                      = "#{node['prometheus']['dir']}/alertmanager/alertmanager.config.yml"
 
 # Alertmanager configuration chef template name.
 default['prometheus']['alertmanager']['config_cookbook_name']                             = 'prometheus'
@@ -219,7 +219,12 @@ default['prometheus']['alertmanager']['config_cookbook_name']                   
 # Alertmanager custom configuration cookbook.  Use this if you'd like to bypass the
 # default prometheus cookbook Alertmanager configuration template and implement your own
 # templates and recipes to configure Alertmanager.
-default['prometheus']['alertmanager']['config_template_name']                             = 'alertmanager.conf.erb'
+default['prometheus']['alertmanager']['config_template_name']                             = 'alertmanager.config.yml.erb'
+
+# Smarthost to use when Alertmanager notifies using email
+default['prometheus']['alertmanager']['smarthost']                            = 'localhost:25'
+# Mail from to use when Alertmanager notifies using email
+default['prometheus']['alertmanager']['mailfrom']                            = 'alertmanager@example.org'
 
 # Service key to use when Alertmanager notifies Pager Duty
 default['prometheus']['alertmanager']['pagerduty_service_key']                            = 'supersecretapikey'
