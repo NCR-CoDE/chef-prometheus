@@ -94,7 +94,7 @@ default['prometheus']['flags']['config.file']                                   
 #default['prometheus']['flags']['alertmanager.notification-queue-capacity']                = 100
 
 # The URL of the alert manager to send notifications to.
-#default['prometheus']['flags']['alertmanager.url']                                        = ''
+default['prometheus']['flags']['alertmanager.url']                                        = "http://#{node['ipaddress']}:9093"
 
 # Maximum number of queries executed concurrently.
 #default['prometheus']['flags']['query.max-concurrency']                                   = 20
