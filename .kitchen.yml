@@ -28,6 +28,9 @@ suites:
       prometheus:
         install_method: binary
         init_style: supervisor
-        checksum: 0a0e301a2f166a52a4e870f1f83e7a6bee3783d7ce35c7ba34f1d2f20a78cbd8
-        binary_url: https://github.com/prometheus/prometheus/releases/download/0.17.0/prometheus-0.17.0.linux-amd64.tar.gz
+        checksum: 0511576f19ff060712d19fb343957113f6a47b2d2edcbe4889eaaa844b31f516
+        binary_url: https://chefresources.ncredinburgh.com/prometheus/prometheus-1.4.1.linux-amd64.tar.gz
+        alertmanager:
+          package_url: https://chefresources.ncredinburgh.com/prometheus/alertmanager-0.5.1.linux-amd64.tar.gz
+          package_checksum: 9df9f0eb0061c8ead1b89060b851ea389fbdf6c1adc8513b40f6f4b90f4de932
 
