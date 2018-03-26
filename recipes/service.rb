@@ -75,7 +75,7 @@ when 'supervisor'
     mode 0644
   end
 
- prom_command="/opt/prometheus/prometheus -config.file=/opt/prometheus/prometheus.yml -storage.local.memory-chunks=#{node['prometheus']['flags']['storage.local.memory-chunks']} -storage.local.path=#{node['prometheus']['flags']['storage.local.path']} -web.console.libraries=#{node['prometheus']['flags']['web.console.libraries']} -web.console.templates=#{node['prometheus']['flags']['web.console.templates']} -alertmanager.url=#{node['prometheus']['flags']['alertmanager.url']}"
+ prom_command="/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml --storage.tsdb.path=#{node['prometheus']['flags']['storage.local.path']} --web.console.libraries=#{node['prometheus']['flags']['web.console.libraries']} --web.console.templates=#{node['prometheus']['flags']['web.console.templates']}"
  supervisor_service "prometheus" do
   action :enable
   autostart true
