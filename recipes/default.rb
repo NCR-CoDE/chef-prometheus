@@ -48,22 +48,6 @@ template node['prometheus']['flags']['config.file'] do
   group     node['prometheus']['group']
 end
 
-# monitor our server instance
-prometheus_job 'prometheus' do
-  scrape_interval   '15s'
-  target            "localhost#{node['prometheus']['flags']['web.listen-address']}"
-  metrics_path      node['prometheus']['flags']['web.telemetry-path']
-end
-
-accumulator node['prometheus']['flags']['config.file'] do
-  filter        { |res| res.is_a? Chef::Resource::PrometheusJob }
-  target        template: node['prometheus']['flags']['config.file']
-  transform     { |jobs| jobs.sort_by(&:name) }
-  variable_name :jobs
-
-  not_if { node['prometheus']['allow_external_config'] && File.exist?(node['prometheus']['flags']['config.file']) }
-end
-
 # -- Do the install -- #
 
 include_recipe "prometheus::#{node['prometheus']['install_method']}"
