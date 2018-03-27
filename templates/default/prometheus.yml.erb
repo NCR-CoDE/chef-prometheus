@@ -28,6 +28,7 @@ scrape_configs:
   scrape_timeout: "<%= job.scrape_timeout %>"
   <% end %>
   metrics_path: "<%= job.metrics_path %>"
-  target_groups:
-    - targets: <%= [job.target] %>
+  static_configs:
+    - targets: 
+      - <%= [job.target] %>
 <% end %>
