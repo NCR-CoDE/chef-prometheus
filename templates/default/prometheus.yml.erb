@@ -4,15 +4,24 @@ global:
   evaluation_interval: "15s" # By default, evaluate rules every 15 seconds.
 
 scrape_configs:
-<% for job in @jobs||[] %>
-- job_name: "<%= job.name %>"
-  <% if job.scrape_interval %>
-  scrape_interval: "<%= job.scrape_interval %>"
-  <% end %>
-  <% if job.scrape_timeout %>
-  scrape_timeout: "<%= job.scrape_timeout %>"
-  <% end %>
-  metrics_path: "<%= job.metrics_path %>"
-  target_groups:
-    - targets: <%= [job.target] %>
-<% end %>
+- job_name: "consul"
+  consul_sd_configs:
+  - server: "<%= node['prometheus']['consul']['server'] %>"
+    datacenter: "<%= node['prometheus']['consul']['dc'] %>"
+
+  relabel_configs:
+  - source_labels: ['__meta_consul_service']
+    regex:         '(.*)'
+    target_label:  'job'
+    replacement:   '$1'
+  - source_labels: ['__meta_consul_node']
+    regex:         '(.*)'
+    target_label:  'instance'
+    replacement:   '$1'
+
+- job_name: "prometheus"
+  scrape_interval: "15s"
+  metrics_path: "/metrics"
+  static_configs:
+    - targets: 
+      - "localhost:9090"

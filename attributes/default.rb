@@ -234,3 +234,8 @@ default['prometheus']['alertmanager']['hipchat_auth_token']                     
 
 # Room ID to use when Alertmanager notifies HipChat
 default['prometheus']['alertmanager']['hipchat_room_id']                                  = 123456
+
+# consul backend
+default['prometheus']['consul']['server']=''
+default['prometheus']['consul']['dc']=''
+
